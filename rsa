@@ -1,0 +1,7 @@
+#!/usr/bin/python3
+
+import sys
+import random
+import time
+
+def is_prime(num, k
