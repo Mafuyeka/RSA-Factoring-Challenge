@@ -1,32 +1,29 @@
 #!/usr/bin/python3
+"""factorize given set of numbers in a file to product of two small numbers"""
+from sys import argv
 
-import sys
 
-# Function to factorize a number using trial division
-def factorize(n):
-    factors = []
-    divisor = 2
-    while n > 1:
-        while n % divisor == 0:
-            factors.append(divisor)
-            n //= divisor
-        divisor += 1
-    return factors
+def factorize(number_to_check):
+    """"find two small numbers that multiply to give a given number"""
+    i = 2
 
-# Read numbers from file and factorize
-def factorize_numbers(filename):
-    with open(filename, 'r') as file:
-        numbers = file.readlines()
+    if number_to_check < 2:
+        return
+    
+    while number_to_check % i:
+        i += 1
+    print("{:.0f}={:.0f}*{:.0f}".format(number_to_check, number_to_check / i, i))
 
-    for number in numbers:
-        number = int(number.strip())
-        factors = factorize(number)
-        print(f"{number}={'*'.join(map(str, factors))}")
+if len(argv) != 2:
+    exit()
 
-# Entry point
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python script.py <file>")
-    else:
-        filename = sys.argv[1]
-        factorize_numbers(filename)
+try:
+    with open(argv[1]) as file:
+        line = file.readline()
+
+        while line != "":
+            number_to_check = int(line.split('\n')[0])
+            factorize(number_to_check)
+            line = file.readline()
+except:
+    pass
